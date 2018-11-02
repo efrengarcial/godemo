@@ -1,0 +1,36 @@
+version: "2"
+services:
+  etcd:
+    environment:
+      ETCD_ADVERTISE_CLIENT_URLS: http://etcd:2379
+      ETCD_INITIAL_ADVERTISE_PEER_URLS: http://etcd:2380
+      ETCD_INITIAL_CLUSTER: infra=http://etcd:2380
+      ETCD_INITIAL_CLUSTER_STATE: new
+      ETCD_INITIAL_CLUSTER_TOKEN: secrettoken
+      ETCD_LISTEN_CLIENT_URLS: http://etcd:2379,http://localhost:2379
+      ETCD_LISTEN_PEER_URLS: http://etcd:2380
+      ETCD_NAME: infra
+    image: quay.io/coreos/etcd:v3.1.7
+    ports:
+    - 2379:2379
+    - 2380:2380
+    restart: always
+  notificator:
+    build:
+      context: .
+      dockerfile: notificator/Dockerfile
+    container_name: notificator
+    ports: []
+    restart: always
+    volumes:
+    - .:/godemo
+  users:
+    build:
+      context: .
+      dockerfile: users/Dockerfile
+    container_name: users
+    ports:
+    - 8800:8181
+    restart: always
+    volumes:
+    - .:/godemo
