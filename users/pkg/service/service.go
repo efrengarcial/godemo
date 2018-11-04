@@ -3,7 +3,6 @@ package service
 import (
 	"context"
 	"github.com/efrengarcial/godemo/notificator/pkg/grpc/pb"
-	sdetcd "github.com/go-kit/kit/sd/etcd"
 	"google.golang.org/grpc"
 	"log"
 )
@@ -32,7 +31,7 @@ func (b *basicUsersService) Create(ctx context.Context, email string) error {
 
 // NewBasicUsersService returns a naive, stateless implementation of UsersService.
 func NewBasicUsersService() UsersService {
-	var etcdServer = "http://etcd:2379" //"http://localhost:23791"
+	/*var etcdServer = "http://etcd:2379" //"http://localhost:23791"
 
 	client, err := sdetcd.NewClient(context.Background(), []string{etcdServer}, sdetcd.ClientOptions{})
 	if err != nil {
@@ -44,9 +43,9 @@ func NewBasicUsersService() UsersService {
 	if err != nil || len(entries) == 0 {
 		log.Printf("unable to get prefix entries: %s", err)
 		return new(basicUsersService)
-	}
+	}*/
 
-	conn, err :=  grpc.Dial(entries[0], grpc.WithInsecure())
+	conn, err :=  grpc.Dial("notificator-service:8085", grpc.WithInsecure())
 	if err != nil {
 		log.Printf("unable to connect to notificator: %s", err.Error())
 		return new(basicUsersService)

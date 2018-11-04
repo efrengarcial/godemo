@@ -36,7 +36,7 @@ var logger log.Logger
 var fs = flag.NewFlagSet("notificator", flag.ExitOnError)
 var debugAddr = fs.String("debug.addr", ":8084", "Debug and metrics listen address")
 var httpAddr = fs.String("http-addr", ":8081", "HTTP listen address")
-var grpcAddr = fs.String("grpc-addr", ":8082", "gRPC listen address")
+var grpcAddr = fs.String("grpc-addr", ":8085", "gRPC listen address")
 var thriftAddr = fs.String("thrift-addr", ":8083", "Thrift listen address")
 var thriftProtocol = fs.String("thrift-protocol", "binary", "binary, compact, json, simplejson")
 var thriftBuffer = fs.Int("thrift-buffer", 0, "0 for unbuffered")

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+        version: v1
+    spec:
+      containers:
+      - name: users-service
+        image: efrengarcial/users-service:latest
+        imagePullPolicy: Always
+        command: [
+          "./app",
+          "-http-addr=:8181",
+        ]
+        env:
+        - name: DB_HOST
+          value: "mongo:27017"
+        - name: UPDATED_AT
+          value: "Mon 19 Mar 2018 12:05:58 GMT"
+        ports:
+        - containerPort: 8181
+          name: user-serv-port
