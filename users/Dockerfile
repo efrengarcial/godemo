@@ -2,10 +2,11 @@ FROM golang:1.11.1-stretch as builder
 
 WORKDIR /godemo
 
-COPY . ./
+COPY ./ ./
+
 
 # Building using -mod=vendor, which will utilize the v
-RUN CGO_ENABLED=0 GOOS=linux go build -mod=vendor  -o app ./users/cmd
+RUN CGO_ENABLED=0 GOOS=linux go build  -mod=vendor  -o app ./users/cmd
 
 FROM alpine:latest
 

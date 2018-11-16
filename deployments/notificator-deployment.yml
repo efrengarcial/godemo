@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: notificator-v1
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: notificator
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: notificator-service
-        image: efrengarcial/notificator-service:latest
+        image: efrengarcial/notificator-service:v1
         imagePullPolicy: Always
         command: [
           "./app",

@@ -1,12 +1,14 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: notificator-destinationrule
+  name: notificator-dr
 spec:
   host: notificator-service
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
+    loadBalancer:
+      simple: ROUND_ROBIN
   subsets:
   - name: v1
     labels:
@@ -15,12 +17,14 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: users-destinationrule
+  name: users-dr
 spec:
   host: users-service
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
+    loadBalancer:
+      simple: ROUND_ROBIN
   subsets:
   - name: v1
     labels:
